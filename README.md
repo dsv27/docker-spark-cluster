@@ -8,10 +8,10 @@ The Docker compose will create the following containers:
 
 container|Ip address
 ---|---
-spark-master|10.5.0.2
-spark-worker-1|10.5.0.3
-spark-worker-2|10.5.0.4
-spark-worker-3|10.5.0.5
+spark-master|spark-master
+spark-worker-1|spark-worker-1
+spark-worker-2|spark-worker-2
+spark-worker-3|spark-worker-3
 
 # Installation
 
@@ -38,13 +38,13 @@ chmod +x build-images.sh
 
 This will create the following docker images:
 
-* spark-base:2.3.1: A base image based on java:alpine-jdk-8 wich ships scala, python3 and spark 2.3.1
+* spark-base:latest: A base image based on java:alpine-jdk-8 wich ships scala, python3 and spark 2.4.7
 
-* spark-master:2.3.1: A image based on the previously created spark image, used to create a spark master containers.
+* spark-master:latest: A image based on the previously created spark image, used to create a spark master containers.
 
-* spark-worker:2.3.1: A image based on the previously created spark image, used to create spark worker containers.
+* spark-worker:latest: A image based on the previously created spark image, used to create spark worker containers.
 
-* spark-submit:2.3.1: A image based on the previously created spark image, used to create spark submit containers(run, deliver driver and die gracefully).
+* spark-submit:latest: A image based on the previously created spark image, used to create spark submit containers(run, deliver driver and die gracefully).
 
 ## Run the docker-compose
 
@@ -60,27 +60,12 @@ Just validate your cluster accesing the spark UI on each worker & master URL.
 
 ### Spark Master
 
-http://10.5.0.2:8080/
+http://{docker-host}:9090/
 
-![alt text](docs/spark-master.png "Spark master UI")
 
-### Spark Worker 1
+### Spark Application UI
 
-http://10.5.0.3:8081/
-
-![alt text](docs/spark-worker-1.png "Spark worker 1 UI")
-
-### Spark Worker 2
-
-http://10.5.0.4:8081/
-
-![alt text](docs/spark-worker-2.png "Spark worker 2 UI")
-
-### Spark Worker 3
-
-http://10.5.0.5:8081/
-
-![alt text](docs/spark-worker-3.png "Spark worker 3 UI")
+http://{docker-host}:4040/
 
 # Resource Allocation 
 
@@ -88,11 +73,11 @@ This cluster is shipped with three workers and one spark master, each of these h
 
 * The default CPU cores allocation for each spark worker is 1 core.
 
-* The default RAM for each spark-worker is 1024 MB.
+* The default RAM for each spark-worker is 2048 MB.
 
-* The default RAM allocation for spark executors is 256mb.
+* The default RAM allocation for spark executors is 1024mb.
 
-* The default RAM allocation for spark driver is 128mb
+* The default RAM allocation for spark driver is 1024mb
 
 * If you wish to modify this allocations just edit the env/spark-worker.sh file.
 
